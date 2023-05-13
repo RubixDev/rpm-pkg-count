@@ -1,0 +1,16 @@
+[package]
+name = "rpm-pkg-count"
+version = "0.1.0"
+authors = ["RubixDev"]
+categories = ["external-ffi-bindings"]
+edition = "2021"
+keywords = ["rpm", "librpm", "fetch"]
+license = "GPL-3.0-only"
+links = "rpm"
+repository = "https://github.com/RubixDev/rpm-pkg-count"
+description = "Counts installed RPM packages using librpm"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+pkg-config = "0.3.27"
