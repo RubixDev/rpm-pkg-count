@@ -13,6 +13,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        feature: [compile-time, runtime]
 
     steps:
       - name: Checkout
@@ -33,15 +36,10 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
+          args: --features ${{ matrix.feature }}
 
-      - name: Run tests (compile-time linkage)
+      - name: Run tests
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --verbose --features compile-time
-
-      - name: Run tests (runtime linkage)
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --verbose --features runtime
+          args: --verbose --features ${{ matrix.feature }}
