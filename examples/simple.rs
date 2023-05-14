@@ -1,5 +1,6 @@
 fn main() {
-    println!("{:?} packages installed.", unsafe {
-        rpm_pkg_count::count()
-    });
+    match unsafe { rpm_pkg_count::count() } {
+        Some(count) => println!("{count} packages installed."),
+        None => println!("packages could not be counted"),
+    }
 }
