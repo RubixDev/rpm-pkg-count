@@ -1,6 +1,6 @@
 [package]
 name = "rpm-pkg-count"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["RubixDev"]
 categories = ["external-ffi-bindings"]
 edition = "2021"
@@ -12,5 +12,17 @@ description = "Counts installed RPM packages using librpm"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+default = []
+
+compile-time = ["dep:pkg-config"]
+runtime = ["dep:libloading"]
+
+[dependencies]
+libloading = { version = "0.8.0", optional = true }
+
 [build-dependencies]
-pkg-config = "0.3.27"
+pkg-config = { version = "0.3.27", optional = true }
+
+[package.metadata.docs.rs]
+features = ["runtime"]
