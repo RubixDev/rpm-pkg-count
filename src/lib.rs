@@ -32,14 +32,14 @@ use ffi::*;
 /// Code is manually translated from C as used by `fastfetch`:
 /// <https://github.com/LinusDierheimer/fastfetch/blob/e837e1e1d1e5a7eba02235748cd1a20a72bc28f9/src/detection/packages/packages_linux.c#L230-L264>
 #[allow(clippy::missing_safety_doc)]
-pub unsafe fn count() -> u32 {
+pub unsafe fn count() -> Option<u32> {
     if rpmReadConfigFiles(std::ptr::null::<i8>(), std::ptr::null::<i8>()) != 0 {
-        return 0;
+        return None;
     }
 
     let ts = rpmtsCreate();
     if ts.is_null() {
-        return 0;
+        return None;
     }
 
     let mi = rpmtsInitIterator(
@@ -50,7 +50,7 @@ pub unsafe fn count() -> u32 {
     );
     if mi.is_null() {
         rpmtsFree(ts);
-        return 0;
+        return None;
     }
 
     let count = rpmdbGetIteratorCount(mi);
@@ -58,5 +58,5 @@ pub unsafe fn count() -> u32 {
     rpmdbFreeIterator(mi);
     rpmtsFree(ts);
 
-    count as u32
+    Some(count as u32)
 }
