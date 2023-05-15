@@ -60,7 +60,7 @@ pub unsafe fn count() -> Option<u32> {
     use ffi::*;
     use ffi_types::*;
 
-    if rpmReadConfigFiles(std::ptr::null::<i8>(), std::ptr::null::<i8>()) != 0 {
+    if rpmReadConfigFiles(std::ptr::null(), std::ptr::null()) != 0 {
         return None;
     }
 
@@ -69,12 +69,7 @@ pub unsafe fn count() -> Option<u32> {
         return None;
     }
 
-    let mi = rpmtsInitIterator(
-        ts,
-        rpmDbiTag_e_RPMDBI_LABEL as i32,
-        std::ptr::null::<::std::os::raw::c_void>(),
-        0,
-    );
+    let mi = rpmtsInitIterator(ts, rpmDbiTag_e_RPMDBI_LABEL as i32, std::ptr::null(), 0);
     if mi.is_null() {
         rpmtsFree(ts);
         return None;
@@ -130,7 +125,7 @@ pub unsafe fn count() -> Option<u32> {
         ) -> rpmdbMatchIterator,
     > = lib.get(b"rpmtsInitIterator").ok()?;
 
-    if rpmReadConfigFiles(std::ptr::null::<i8>(), std::ptr::null::<i8>()) != 0 {
+    if rpmReadConfigFiles(std::ptr::null(), std::ptr::null()) != 0 {
         return None;
     }
 
@@ -139,12 +134,7 @@ pub unsafe fn count() -> Option<u32> {
         return None;
     }
 
-    let mi = rpmtsInitIterator(
-        ts,
-        rpmDbiTag_e_RPMDBI_LABEL as i32,
-        std::ptr::null::<::std::os::raw::c_void>(),
-        0,
-    );
+    let mi = rpmtsInitIterator(ts, rpmDbiTag_e_RPMDBI_LABEL as i32, std::ptr::null(), 0);
     if mi.is_null() {
         rpmtsFree(ts);
         return None;
